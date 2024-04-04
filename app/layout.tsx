@@ -1,7 +1,7 @@
 import { GeistSans } from 'geist/font/sans'
 import './globals.css'
 import { twMerge } from 'tailwind-merge'
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from '@/_components/ui/toaster'
 
 const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`

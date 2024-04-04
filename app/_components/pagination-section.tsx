@@ -9,21 +9,40 @@ import {
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-} from '@/components/ui/pagination'
+} from '@/_components/ui/pagination'
 import { Button } from './ui/button'
 
 type PaginationProps = {
+    itemsPerPage: number
     currentPage: number
-    lastPage: number
+    count: number
 }
 
 export default function PaginationSection({
+    itemsPerPage,
     currentPage,
-    lastPage,
+    count,
 }: PaginationProps) {
     const searchParams = useSearchParams()
     const pathname = usePathname()
     const { replace } = useRouter()
+
+    const totalPages = Math.ceil(count! / itemsPerPage)
+
+    const prevPage = currentPage > 1
+    const firstPage = currentPage > 2
+    const prevDots = currentPage > 3
+    const pageNumber = []
+    const offset = 1
+    for (let i = currentPage - offset; i <= currentPage + offset; i++) {
+        if (i > 0 && i <= totalPages) {
+            pageNumber.push(i)
+        }
+    }
+    const nextDots = currentPage < totalPages - 2
+    const lastPage =
+        currentPage !== totalPages && currentPage !== totalPages - 1
+    const nextPage = currentPage < totalPages
 
     const handleChangePage = (value: number) => {
         const params = new URLSearchParams(searchParams)
@@ -53,7 +72,7 @@ export default function PaginationSection({
 
     return (
         <div className="my-5 flex flex-col">
-            {currentPage < lastPage && (
+            {currentPage < totalPages && (
                 <Button
                     onClick={() => loadMore(currentPage + 1, true)}
                     className="mb-8 flex self-center"
@@ -63,7 +82,7 @@ export default function PaginationSection({
             )}
             <Pagination>
                 <PaginationContent>
-                    {currentPage > 1 && (
+                    {prevPage && (
                         <PaginationItem>
                             <PaginationPrevious
                                 onClick={() =>
@@ -72,61 +91,49 @@ export default function PaginationSection({
                             />
                         </PaginationItem>
                     )}
-                    {currentPage > 2 && (
+
+                    {firstPage && (
                         <PaginationItem>
                             <PaginationLink onClick={() => handleChangePage(1)}>
                                 1
                             </PaginationLink>
                         </PaginationItem>
                     )}
-                    {currentPage > 3 && (
+
+                    {prevDots && (
                         <PaginationItem>
                             <PaginationEllipsis />
                         </PaginationItem>
                     )}
-                    {currentPage !== 1 && (
+
+                    {pageNumber.map((number) => (
+                        <PaginationItem key={number}>
+                            <PaginationLink
+                                isActive={currentPage === number}
+                                onClick={() => handleChangePage(number)}
+                            >
+                                {number}
+                            </PaginationLink>
+                        </PaginationItem>
+                    ))}
+
+                    {nextDots && (
+                        <PaginationItem>
+                            <PaginationEllipsis />
+                        </PaginationItem>
+                    )}
+
+                    {lastPage && (
                         <PaginationItem>
                             <PaginationLink
-                                onClick={() =>
-                                    handleChangePage(currentPage - 1)
-                                }
+                                onClick={() => handleChangePage(totalPages)}
                             >
-                                {currentPage - 1}
+                                {totalPages}
                             </PaginationLink>
                         </PaginationItem>
                     )}
-                    <PaginationItem>
-                        <PaginationLink isActive>{currentPage}</PaginationLink>
-                    </PaginationItem>
-                    {currentPage !== lastPage && (
-                        <PaginationItem>
-                            <PaginationLink
-                                onClick={() =>
-                                    handleChangePage(currentPage + 1)
-                                }
-                            >
-                                {currentPage + 1}
-                            </PaginationLink>
-                        </PaginationItem>
-                    )}
-                    {currentPage !== lastPage &&
-                        currentPage !== lastPage - 1 &&
-                        currentPage !== lastPage - 2 && (
-                            <PaginationItem>
-                                <PaginationEllipsis />
-                            </PaginationItem>
-                        )}
-                    {currentPage !== lastPage &&
-                        currentPage !== lastPage - 1 && (
-                            <PaginationItem>
-                                <PaginationLink
-                                    onClick={() => handleChangePage(lastPage)}
-                                >
-                                    {lastPage}
-                                </PaginationLink>
-                            </PaginationItem>
-                        )}
-                    {currentPage < lastPage && (
+
+                    {nextPage && (
                         <PaginationItem>
                             <PaginationNext
                                 onClick={() =>

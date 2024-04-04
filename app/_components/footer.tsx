@@ -1,4 +1,4 @@
-import DeployButton from '@/components/ui/deploy-button'
+import DeployButton from '@/_components/ui/deploy-button'
 
 export default function Footer() {
     return (

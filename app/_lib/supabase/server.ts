@@ -1,4 +1,4 @@
-import { Database } from '@/lib/Xdatabase.types'
+import { Database } from '@/_lib/database.types'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 

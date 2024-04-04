@@ -1,39 +1,36 @@
-import Filters from '@/components/filters'
 import { Suspense } from 'react'
-import PokemonList from './pokemon-list'
-import { createClient } from '@/utils/supabase/server'
-import PokemonListSkeleton from './pokemon-list-skeleton'
+import Filters from '@/_components/filters'
+import PokemonList from '@/pokemons/pokemon-list'
+import PokemonListSkeleton from '@/pokemons/pokemon-list-skeleton'
+import { getPokemonTypes } from '@/pokemons/get-pokemon-types'
 
 interface PageProps {
     searchParams: {
-        [key: string]: string | undefined
+        [key: string]: string | string[] | undefined
     }
 }
 
 export default async function Page({ searchParams }: PageProps) {
-    const supabase = createClient()
-
-    let query = supabase.from('types').select()
-    const { data: types } = await query
+    const types = await getPokemonTypes()
+    const keyString = `search=${searchParams['search']}&type=${searchParams['type']}` // for triggering suspense after filter change
 
     const search = searchParams['search'] ?? ''
     const type = searchParams['type'] ?? ''
-    const currentPage = searchParams['page'] ?? '1'
-    const loadMore = !!searchParams['loadMore'] ?? 'false'
-
-    const keyString = `search=${searchParams['search']}&type=${searchParams['type']}` // for triggering suspense after filter change
+    const currentPage = Number(searchParams['page'] ?? '1')
+    const loadMore = !!searchParams['loadMore']
 
     return (
-        <div className="mx-auto my-10 w-full max-w-6xl flex-1">
+        <main className="mx-auto my-10 w-full max-w-6xl flex-1">
             <Filters types={types} />
+
             <Suspense key={keyString} fallback={<PokemonListSkeleton />}>
                 <PokemonList
                     search={search}
                     type={type}
-                    currentPage={Number(currentPage)}
+                    currentPage={currentPage}
                     loadMore={loadMore}
                 />
             </Suspense>
-        </div>
+        </main>
     )
 }

@@ -5,7 +5,7 @@ import { Cross2Icon } from '@radix-ui/react-icons'
 import * as ToastPrimitives from '@radix-ui/react-toast'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/_lib/utils'
 
 const ToastProvider = ToastPrimitives.Provider
 
@@ -30,6 +30,8 @@ const toastVariants = cva(
         variants: {
             variant: {
                 default: 'border bg-background text-foreground',
+                success:
+                    'success group border-primary bg-primary text-primary-foreground',
                 destructive:
                     'destructive group border-destructive bg-destructive text-destructive-foreground',
             },
@@ -77,7 +79,7 @@ const ToastClose = React.forwardRef<
     <ToastPrimitives.Close
         ref={ref}
         className={cn(
-            'absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600',
+            'absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.success]:text-background/50 group-[.destructive]:hover:text-red-50 group-[.success]:hover:text-background group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600',
             className
         )}
         toast-close=""

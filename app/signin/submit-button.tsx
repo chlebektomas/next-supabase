@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormStatus } from 'react-dom'
-import { Button, ButtonProps } from '@/components/ui/button'
+import { Button, ButtonProps } from '@/_components/ui/button'
 
 type Props = ButtonProps & {
     pendingText?: string

@@ -1,6 +1,6 @@
-import NextLogo from '@/components/next-logo'
-import SupabaseLogo from '@/components/supabase-logo'
-import { Button } from '@/components/ui/button'
+import NextLogo from '@/_components/next-logo'
+import SupabaseLogo from '@/_components/supabase-logo'
+import { Button } from '@/_components/ui/button'
 import Link from 'next/link'
 
 export default async function Index() {

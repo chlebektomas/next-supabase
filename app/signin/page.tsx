@@ -1,59 +1,13 @@
 import Link from 'next/link'
-import { headers } from 'next/headers'
-import { createClient } from '@/utils/supabase/server'
-import { redirect } from 'next/navigation'
 import { SubmitButton } from './submit-button'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/_components/ui/button'
+import { signIn, signUp } from '@/_lib/actions'
 
 export default function Signin({
     searchParams,
 }: {
     searchParams: { message: string }
 }) {
-    const signIn = async (formData: FormData) => {
-        'use server'
-
-        const email = formData.get('email') as string
-        const password = formData.get('password') as string
-        const supabase = createClient()
-
-        const { error } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-        })
-
-        if (error) {
-            return redirect('/signin?message=Could not authenticate user')
-        }
-
-        return redirect('/account')
-    }
-
-    const signUp = async (formData: FormData) => {
-        'use server'
-
-        const origin = headers().get('origin')
-        const email = formData.get('email') as string
-        const password = formData.get('password') as string
-        const supabase = createClient()
-
-        const { error } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-                emailRedirectTo: `${origin}/auth/callback`,
-            },
-        })
-
-        if (error) {
-            return redirect('/signin?message=Could not authenticate user')
-        }
-
-        return redirect(
-            '/signin?message=Check email to continue sign in process'
-        )
-    }
-
     return (
         <div className="flex min-h-screen w-full max-w-md flex-col justify-center gap-2 px-8 opacity-0 animate-in">
             <form className="mx-auto flex w-full max-w-md  flex-col gap-2">

@@ -1,23 +1,11 @@
-import { createClient } from '@/utils/supabase/server'
-import { redirect } from 'next/navigation'
 import { Button } from './ui/button'
 import Link from 'next/link'
+import { ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/outline'
+import { getUser } from '@/auth/get-user'
+import { signOut } from '@/_lib/actions'
 
 export default async function AuthButton() {
-    const supabase = createClient()
-
-    const {
-        data: { user },
-    } = await supabase.auth.getUser()
-
-    const signOut = async () => {
-        'use server'
-
-        const supabase = createClient()
-        await supabase.auth.signOut()
-
-        return redirect('/')
-    }
+    const user = await getUser()
 
     return user ? (
         <>
@@ -26,7 +14,7 @@ export default async function AuthButton() {
             </Button>
             <form action={signOut}>
                 <Button variant="link" type="submit">
-                    Logout
+                    <ArrowRightEndOnRectangleIcon className="size-6" />
                 </Button>
             </form>
         </>

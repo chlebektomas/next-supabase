@@ -9,7 +9,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select'
+} from '@/_components/ui/select'
 
 type FiltersProps = {
     types: { name: string }[] | null
@@ -24,6 +24,9 @@ export default function Filters({ types }: FiltersProps) {
         const params = new URLSearchParams(searchParams)
 
         if (term) {
+            params.delete('loadMore')
+            params.delete('page')
+
             params.set('search', term)
         } else {
             params.delete('search')
@@ -35,10 +38,11 @@ export default function Filters({ types }: FiltersProps) {
     const handleType = (value: string) => {
         const params = new URLSearchParams(searchParams)
 
-        console.log('🔥 value: ', value)
-
         if (value && value !== 'type') {
+            params.delete('loadMore')
+            params.delete('page')
             params.delete('type')
+
             params.set('type', value)
         } else {
             params.delete('type')
