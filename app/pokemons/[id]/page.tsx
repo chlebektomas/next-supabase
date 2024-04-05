@@ -4,8 +4,6 @@ import Image from 'next/image'
 import StatBar from '@/_components/stat-bar'
 import FavoriteButton from '@/_components/favorite-button'
 import { getFavoritePokemons } from '@/pokemons/get-favorite-pokemons'
-import { ShareIcon } from '@heroicons/react/24/outline'
-import { Button } from '@/_components/ui/button'
 import ShareButton from '@/_components/share-button'
 
 interface PageProps {

@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS public.pokemon
     level_100_max_special integer NOT NULL,
     level_100_min_speed integer NOT NULL,
     level_100_max_speed integer NOT NULL,
+    evolutions text[],
     CONSTRAINT pokemon_pkey PRIMARY KEY (id)
 )
 
