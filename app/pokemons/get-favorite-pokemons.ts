@@ -1,6 +1,6 @@
 import { createClient } from '@/_lib/supabase/server'
 
-export async function getFavoritePokemons(id: string | null = null) {
+export async function getFavoritePokemons() {
     try {
         const supabase = createClient()
 
@@ -12,13 +12,10 @@ export async function getFavoritePokemons(id: string | null = null) {
 
         const userId = user.id
 
-        let query = supabase.from('favorites').select().eq('user_id', userId)
-
-        if (id) {
-            query = query.eq('pokemon_id', id)
-        }
-
-        const { data: favorites } = await query
+        const { data: favorites } = await supabase
+            .from('favorites')
+            .select()
+            .eq('user_id', userId)
 
         return { favorites, userId }
     } catch (error) {

@@ -4,14 +4,28 @@ export async function getPokemon(id: string) {
     try {
         const supabase = createClient()
 
-        const { data: pokemons } = await supabase
+        const {
+            data: { user },
+        } = await supabase.auth.getUser()
+
+        const userId = user?.id || ''
+
+        const { data: pokemon } = await supabase
             .from('pokemon')
             .select()
             .eq('id', id)
+            .single()
 
-        const pokemon = pokemons ? pokemons[0] : null
+        const { data: favorite } = await supabase
+            .from('favorites')
+            .select()
+            .eq('user_id', userId)
+            .eq('pokemon_id', id)
+            .single()
 
-        return pokemon
+        const isFavorite = !!favorite
+
+        return { pokemon, isFavorite, userId }
     } catch (error) {
         throw new Error('Error fetching pokemon')
     }

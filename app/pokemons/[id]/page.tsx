@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import StatBar from '@/_components/stat-bar'
 import FavoriteButton from '@/_components/favorite-button'
-import { getFavoritePokemons } from '@/pokemons/get-favorite-pokemons'
 import ShareButton from '@/_components/share-button'
+import Evolutions from './evolutions'
 
 interface PageProps {
     params: {
@@ -15,15 +15,7 @@ interface PageProps {
 export default async function Page({ params }: PageProps) {
     const { id } = params
 
-    const favoritePromise = getFavoritePokemons(id)
-    const pokemonPromise = getPokemon(id)
-
-    const [{ favorites, userId }, pokemon] = await Promise.all([
-        favoritePromise,
-        pokemonPromise,
-    ])
-
-    const isFavorite = favorites ? favorites[0]?.pokemon_id === id : false
+    const { pokemon, isFavorite, userId } = await getPokemon(id)
 
     if (!pokemon) notFound()
 
@@ -40,9 +32,11 @@ export default async function Page({ params }: PageProps) {
 
             <div className="mt-5 space-y-2 text-center">
                 <h1 className="text-4xl">{pokemon.name}</h1>
+
                 <p className="text-lg text-neutral-400">
                     {pokemon.type.join(', ')}
                 </p>
+
                 <div className="flex justify-center gap-1">
                     <FavoriteButton
                         userId={userId}
@@ -58,13 +52,14 @@ export default async function Page({ params }: PageProps) {
                     <h2>Height</h2>
                     <p className="text-neutral-400">{pokemon.height} m</p>
                 </div>
+
                 <div>
                     <h2>Weight</h2>
                     <p className="text-neutral-400">{pokemon.weight} kg</p>
                 </div>
             </div>
 
-            <ul className="space-y-3  text-center">
+            <ul className="space-y-3 text-center">
                 <li>
                     <StatBar
                         name="HP"
@@ -73,6 +68,7 @@ export default async function Page({ params }: PageProps) {
                         color="bg-red-400"
                     />
                 </li>
+
                 <li>
                     <StatBar
                         name="Attack"
@@ -81,6 +77,7 @@ export default async function Page({ params }: PageProps) {
                         color="bg-red-600"
                     />
                 </li>
+
                 <li>
                     <StatBar
                         name="Defense"
@@ -89,6 +86,7 @@ export default async function Page({ params }: PageProps) {
                         color="bg-blue-600"
                     />
                 </li>
+
                 <li>
                     <StatBar
                         name="Speed"
@@ -97,6 +95,7 @@ export default async function Page({ params }: PageProps) {
                         color="bg-green-600"
                     />
                 </li>
+
                 <li>
                     <StatBar
                         name="Special"
@@ -111,6 +110,8 @@ export default async function Page({ params }: PageProps) {
                 <span>*</span>
                 The stats are calculated based on the level 100 max stats
             </legend>
+
+            <Evolutions evolutionsIds={pokemon.evolutions} />
         </main>
     )
 }

@@ -1,9 +1,7 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import PaginationSection from '@/_components/pagination-section'
-import FavoriteButton from '@/_components/favorite-button'
 import { getPokemons } from '@/pokemons/get-pokemons'
 import { getFavoritePokemons } from '@/pokemons/get-favorite-pokemons'
+import PokemonCard from '../_components/pokemon-card'
 
 type PokemonListProps = {
     search: string | string[]
@@ -53,35 +51,12 @@ export default async function PokemonList({
                     )
 
                     return (
-                        <Link
+                        <PokemonCard
                             key={pokemon.id}
-                            href={`/pokemons/${pokemon.id}`}
-                            className="group w-full overflow-hidden rounded-3xl from-neutral-700 from-10% to-neutral-800 p-3 transition-all duration-300 hover:cursor-pointer hover:bg-gradient-to-tr"
-                        >
-                            <div className="hover:group relative aspect-square rounded-xl bg-white">
-                                <Image
-                                    src={pokemon.image_url}
-                                    alt={pokemon.name}
-                                    className="p-10 transition-all duration-300 group-hover:scale-110"
-                                    sizes="(min-width: 768px) 25vw, 50vw"
-                                    fill
-                                    priority
-                                />
-                            </div>
-
-                            <h2 className="mt-2 flex justify-between overflow-hidden overflow-ellipsis whitespace-nowrap text-white first-letter:uppercase lg:text-lg">
-                                {pokemon.name}
-                                <FavoriteButton
-                                    userId={userId}
-                                    pokemonId={pokemon.id}
-                                    isFavorite={isFavorite}
-                                />
-                            </h2>
-
-                            <p className="text-neutral-400">
-                                {pokemon.type.join(', ')}
-                            </p>
-                        </Link>
+                            pokemon={pokemon}
+                            isFavorite={isFavorite}
+                            userId={userId}
+                        />
                     )
                 })}
             </div>

@@ -5,7 +5,7 @@ import { HeartIcon as HeartOutlineIcon } from '@heroicons/react/24/outline'
 import { addToFavorites, removeFromFavorites } from '@/_lib/actions'
 import { Button } from '@/_components/ui/button'
 import { useToast } from '@/_components/ui/use-toast'
-import { useOptimistic, useTransition } from 'react'
+import { startTransition, useOptimistic, useTransition } from 'react'
 import Link from '@/_components/ui/link'
 
 interface FavoriteButtonProps {
@@ -32,7 +32,7 @@ export default function FavoriteButton({
 
         if (!userId) {
             return toast({
-                key: Math.random(),
+                key: `not-signed-in`,
                 variant: 'destructive',
                 duration: 5000,
                 description: (
@@ -48,7 +48,6 @@ export default function FavoriteButton({
 
         if (optimisticFavorite) {
             toast({
-                key: Math.random(),
                 variant: 'success',
                 duration: 3000,
                 description: 'Pokemon removed from favorites.',
@@ -57,7 +56,6 @@ export default function FavoriteButton({
             await removeFromFavorites(userId, pokemonId)
         } else {
             toast({
-                key: Math.random(),
                 variant: 'success',
                 duration: 3000,
                 description: 'Pokemon add to favorites.',

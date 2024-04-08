@@ -57,7 +57,6 @@ export async function addToFavorites(userId: string, pokemonId: string) {
         await supabase
             .from('favorites')
             .insert({ user_id: userId, pokemon_id: pokemonId })
-            .select()
     } catch (error) {
         throw new Error('Error adding to favorites')
     }

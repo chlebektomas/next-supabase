@@ -1,7 +1,16 @@
-import { getUser } from '@/auth/get-user'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/_lib/supabase/server'
 
 export default async function ProtectedPage() {
-    const user = await getUser()
+    const supabase = createClient()
+
+    const {
+        data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+        return redirect('/signin')
+    }
 
     return (
         <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center p-6 text-center opacity-0 animate-in">

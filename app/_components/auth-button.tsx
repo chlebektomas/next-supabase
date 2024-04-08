@@ -1,11 +1,15 @@
 import { Button } from './ui/button'
 import Link from 'next/link'
 import { ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/outline'
-import { getUser } from '@/auth/get-user'
 import { signOut } from '@/_lib/actions'
+import { createClient } from '@/_lib/supabase/server'
 
 export default async function AuthButton() {
-    const user = await getUser()
+    const supabase = createClient()
+
+    const {
+        data: { user },
+    } = await supabase.auth.getUser()
 
     return user ? (
         <>
