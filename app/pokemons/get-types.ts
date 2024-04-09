@@ -6,7 +6,7 @@ let types:
       }[]
     | null
 
-export async function getPokemonTypes() {
+export async function getTypes() {
     if (!types) {
         const supabase = createClient()
 

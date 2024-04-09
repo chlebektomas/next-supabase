@@ -13,7 +13,9 @@ export async function getPokemons(
         const start = (currentPage - 1) * itemsPerPage
         const end = start + itemsPerPage - 1
 
-        let query = supabase.from('pokemon').select('*', { count: 'exact' })
+        let query = supabase
+            .from('pokemon')
+            .select('id, name, type, image_url', { count: 'exact' })
 
         if (search) {
             query = query.ilike('name', `%${search}%`)

@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import Filters from '@/_components/filters'
 import PokemonList from '@/pokemons/pokemon-list'
 import PokemonListSkeleton from '@/pokemons/pokemon-list-skeleton'
-import { getPokemonTypes } from '@/pokemons/get-pokemon-types'
+import { getTypes } from '@/pokemons/get-types'
 
 interface PageProps {
     searchParams: {
@@ -11,7 +11,7 @@ interface PageProps {
 }
 
 export default async function Page({ searchParams }: PageProps) {
-    const types = await getPokemonTypes()
+    const types = await getTypes()
     const keyString = `search=${searchParams['search']}&type=${searchParams['type']}` // for triggering suspense after filter change
 
     const search = searchParams['search'] ?? ''

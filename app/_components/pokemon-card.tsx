@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import FavoriteButton from '@/_components/favorite-button'
-import { Tables } from '@/_lib/database.types'
+import { PokemonCardType } from '@/_types/pokemon-card'
 
 type PokemonCardProps = {
-    pokemon: Tables<'pokemon'>
+    pokemon: PokemonCardType
     userId: string | null
     isFavorite: boolean
 }

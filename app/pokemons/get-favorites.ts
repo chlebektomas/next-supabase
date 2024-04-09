@@ -1,6 +1,6 @@
 import { createClient } from '@/_lib/supabase/server'
 
-export async function getFavoritePokemons() {
+export async function getFavorites() {
     try {
         const supabase = createClient()
 

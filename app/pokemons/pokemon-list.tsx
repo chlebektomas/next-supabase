@@ -1,6 +1,6 @@
 import PaginationSection from '@/_components/pagination-section'
 import { getPokemons } from '@/pokemons/get-pokemons'
-import { getFavoritePokemons } from '@/pokemons/get-favorite-pokemons'
+import { getFavorites } from '@/pokemons/get-favorites'
 import PokemonCard from '../_components/pokemon-card'
 
 type PokemonListProps = {
@@ -25,7 +25,7 @@ export default async function PokemonList({
         type,
         loadMore
     )
-    const favoritesPromise = getFavoritePokemons()
+    const favoritesPromise = getFavorites()
 
     const [{ pokemons, count }, { favorites, userId }] = await Promise.all([
         pokemonsPromise,
