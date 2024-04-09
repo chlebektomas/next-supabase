@@ -5,7 +5,7 @@ import { HeartIcon as HeartOutlineIcon } from '@heroicons/react/24/outline'
 import { addToFavorites, removeFromFavorites } from '@/_lib/actions'
 import { Button } from '@/_components/ui/button'
 import { useToast } from '@/_components/ui/use-toast'
-import { startTransition, useOptimistic, useTransition } from 'react'
+import { useOptimistic } from 'react'
 import Link from '@/_components/ui/link'
 
 interface FavoriteButtonProps {
