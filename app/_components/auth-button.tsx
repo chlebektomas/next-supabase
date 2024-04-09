@@ -14,6 +14,9 @@ export default async function AuthButton() {
     return user ? (
         <>
             <Button variant="link" asChild>
+                <Link href="/favorites">Favorites</Link>
+            </Button>
+            <Button variant="link" asChild>
                 <Link href="/account">Account</Link>
             </Button>
             <form action={signOut}>

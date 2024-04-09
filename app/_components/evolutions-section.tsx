@@ -1,11 +1,13 @@
 import PokemonCard from '@/_components/pokemon-card'
-import { getEvolution } from '@/pokemons/[id]/get-evolution'
+import { getEvolution } from '@/_requests/get-evolution'
 
 type EvolutionProps = {
     evolutionsIds: string[] | null
 }
 
-export default async function Evolutions({ evolutionsIds }: EvolutionProps) {
+export default async function EvolutionsSection({
+    evolutionsIds,
+}: EvolutionProps) {
     if (!evolutionsIds) return null
 
     const evolutions = await Promise.all(

@@ -1,10 +1,10 @@
-import { getPokemon } from '@/pokemons/[id]/get-pokemon'
+import { getPokemon } from '@/_requests/get-pokemon'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import StatBar from '@/_components/stat-bar'
 import FavoriteButton from '@/_components/favorite-button'
 import ShareButton from '@/_components/share-button'
-import Evolutions from './evolutions'
+import EvolutionsSection from '../../_components/evolutions-section'
 
 interface PageProps {
     params: {
@@ -111,7 +111,7 @@ export default async function Page({ params }: PageProps) {
                 The stats are calculated based on the level 100 max stats
             </legend>
 
-            <Evolutions evolutionsIds={pokemon.evolutions} />
+            <EvolutionsSection evolutionsIds={pokemon.evolutions} />
         </main>
     )
 }

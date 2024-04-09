@@ -1,29 +1,32 @@
 import PaginationSection from '@/_components/pagination-section'
-import { getPokemons } from '@/pokemons/get-pokemons'
-import { getFavorites } from '@/pokemons/get-favorites'
-import PokemonCard from '../_components/pokemon-card'
+import { getPokemons } from '@/_requests/get-pokemons'
+import { getFavorites } from '@/_requests/get-favorites'
+import PokemonCard from './pokemon-card'
 
 type PokemonListProps = {
-    search: string | string[]
-    type: string | string[]
-    currentPage: number
-    loadMore: boolean
+    searchParams: {
+        [key: string]: string | string[] | undefined
+    }
+    favoritesPage: boolean
 }
 
 export default async function PokemonList({
-    search,
-    type,
-    currentPage,
-    loadMore,
+    searchParams,
+    favoritesPage,
 }: PokemonListProps) {
     const itemsPerPage = 12
+    const search = searchParams['search'] ?? ''
+    const type = searchParams['type'] ?? ''
+    const currentPage = Number(searchParams['page'] ?? '1')
+    const loadMore = !!searchParams['loadMore']
 
     const pokemonsPromise = getPokemons(
         itemsPerPage,
         currentPage,
         search,
         type,
-        loadMore
+        loadMore,
+        favoritesPage
     )
     const favoritesPromise = getFavorites()
 

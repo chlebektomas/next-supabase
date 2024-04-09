@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { SubmitButton } from './submit-button'
+import { SubmitButton } from '../_components/submit-button'
 import { Button } from '@/_components/ui/button'
 import { signIn, signUp } from '@/_lib/actions'
 

@@ -1,5 +1,5 @@
-import NextLogo from '@/_components/next-logo'
-import SupabaseLogo from '@/_components/supabase-logo'
+import NextLogo from '@/_components/logos/next-logo'
+import SupabaseLogo from '@/_components/logos/supabase-logo'
 import { Button } from '@/_components/ui/button'
 import Link from 'next/link'
 
