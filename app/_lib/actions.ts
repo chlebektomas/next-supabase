@@ -51,31 +51,23 @@ export async function signOut() {
 }
 
 export async function addToFavorites(userId: string, pokemonId: string) {
-    try {
-        const supabase = createClient()
+    const supabase = createClient()
 
-        await supabase
-            .from('favorites')
-            .insert({ user_id: userId, pokemon_id: pokemonId })
-    } catch (error) {
-        throw new Error('Error adding to favorites')
-    }
+    await supabase
+        .from('favorites')
+        .insert({ user_id: userId, pokemon_id: pokemonId })
 
     revalidatePath('/pokemons')
 }
 
 export async function removeFromFavorites(userId: string, pokemonId: string) {
-    try {
-        const supabase = createClient()
+    const supabase = createClient()
 
-        await supabase
-            .from('favorites')
-            .delete()
-            .eq('user_id', userId)
-            .eq('pokemon_id', pokemonId)
-    } catch (error) {
-        throw new Error('Error removing from favorites')
-    }
+    await supabase
+        .from('favorites')
+        .delete()
+        .eq('user_id', userId)
+        .eq('pokemon_id', pokemonId)
 
     revalidatePath('/pokemons')
 }
