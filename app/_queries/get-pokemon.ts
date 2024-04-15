@@ -1,13 +1,11 @@
 import { createClient } from '@/_lib/supabase/server'
+import { getUser } from '@/_queries/get-user'
 
 export async function getPokemon(id: string) {
     try {
         const supabase = createClient()
 
-        const {
-            data: { user },
-        } = await supabase.auth.getUser()
-
+        const user = await getUser()
         const userId = user?.id || ''
 
         const { data: pokemon } = await supabase

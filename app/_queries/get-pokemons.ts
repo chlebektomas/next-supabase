@@ -1,4 +1,5 @@
 import { createClient } from '@/_lib/supabase/server'
+import { getUser } from '@/_queries/get-user'
 
 export async function getPokemons(
     itemsPerPage: number,
@@ -11,10 +12,7 @@ export async function getPokemons(
     try {
         const supabase = createClient()
 
-        const {
-            data: { user },
-        } = await supabase.auth.getUser()
-
+        const user = await getUser()
         const userId = user?.id || ''
 
         const start = (currentPage - 1) * itemsPerPage

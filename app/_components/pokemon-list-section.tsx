@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import Filters from '@/_components/filters'
 import PokemonList from '@/_components/pokemon-list'
 import PokemonListSkeleton from '@/_components/pokemon-list-skeleton'
-import { getTypes } from '@/_requests/get-types'
+import { getTypes } from '@/_queries/get-types'
 
 interface PageProps {
     searchParams: {

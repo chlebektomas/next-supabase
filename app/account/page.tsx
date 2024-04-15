@@ -1,12 +1,8 @@
+import { getUser } from '@/_queries/get-user'
 import { redirect } from 'next/navigation'
-import { createClient } from '@/_lib/supabase/server'
 
 export default async function ProtectedPage() {
-    const supabase = createClient()
-
-    const {
-        data: { user },
-    } = await supabase.auth.getUser()
+    const user = await getUser()
 
     if (!user) {
         return redirect('/signin')

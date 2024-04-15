@@ -1,4 +1,4 @@
-import { getPokemon } from '@/_requests/get-pokemon'
+import { getPokemon } from '@/_queries/get-pokemon'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import StatBar from '@/_components/stat-bar'

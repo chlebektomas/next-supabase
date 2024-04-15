@@ -1,5 +1,5 @@
 import PokemonCard from '@/_components/pokemon-card'
-import { getEvolution } from '@/_requests/get-evolution'
+import { getEvolution } from '@/_queries/get-evolution'
 
 type EvolutionProps = {
     evolutionsIds: string[] | null

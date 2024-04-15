@@ -1,6 +1,6 @@
 import PaginationSection from '@/_components/pagination-section'
-import { getPokemons } from '@/_requests/get-pokemons'
-import { getFavorites } from '@/_requests/get-favorites'
+import { getPokemons } from '@/_queries/get-pokemons'
+import { getFavorites } from '@/_queries/get-favorites'
 import PokemonCard from './pokemon-card'
 
 type PokemonListProps = {
